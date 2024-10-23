@@ -1,6 +1,6 @@
 ﻿namespace _Project__Atendence_Program
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
