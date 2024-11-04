@@ -1,4 +1,5 @@
-﻿using System;
+﻿using final1;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
@@ -13,23 +14,27 @@ namespace Project_KTMH
         private string roleID;
         private string departmentID;
         private int paidleave;
+        private string roleName;
 
         public List<Attendance> attendances = new List<Attendance>();
-        public string EmployeeID1 { get => employeeID; set => employeeID = value; }
-        public string RoleID1 { get => roleID; set => roleID = value; }
-        public string DepartmentID1 { get => departmentID; set => departmentID = value; }
+        public string EmployeeID1 { get => employeeID; private set => employeeID = value; }
+        public string RoleID1 { get => roleID; private set => roleID = value; }
+        public string DepartmentID1 { get => departmentID; private set => departmentID = value; }
+
+        public string RoleName { get; }
 
         //public string EmployeeID() { return EmployeeID1; }
         //public string RoleID() { return RoleID1; }
         //public string DepartmentID() { return DepartmentID1; }
-      
 
 
-        public Employee(string name, string email, DateTime dateofbirth, string phone_num, string address, string employeeID, string roleID, string departmentID)
+
+        public Employee(string name, string email, DateTime dateofbirth, string phone_num, string address, string employeeID, string roleID, string departmentID,string roleName)
             : base(name, email, dateofbirth, phone_num, address)
         {
             this.EmployeeID1 = employeeID;
             this.RoleID1 = roleID;
+            this.RoleName = roleName;
             this.DepartmentID1 = departmentID;
             this.attendances = new List<Attendance>();
         }
@@ -57,10 +62,20 @@ namespace Project_KTMH
             return 0;
         }
 
-        public void Add(List<Employee> employee)
+        public void UpdateEmployee(string name, string email, DateTime dateOfBirth, string phoneNum, string address, string roleID, string departmentID,string roleName)
+        {
+            UpdatePersonalDetails(name, email, dateOfBirth);
+            this.Phone_num = phoneNum;
+            this.Address = address;
+            this.RoleID1 = roleID;
+            this.roleName = roleName;
+            this.DepartmentID1 = departmentID;
+        }
+
+        /*public void Add(List<Employee> employee)
         {
             Console.Write("nhap ten: ");
-            string name= Console.ReadLine();
+            string name = Console.ReadLine();
             Console.Write("nhap dia chi: ");
             string address = Console.ReadLine();
             Console.Write("nhap email: ");
@@ -75,12 +90,12 @@ namespace Project_KTMH
             string roleID = Console.ReadLine();
             Console.Write("nhap ma phong ban: ");
             string departmentID = Console.ReadLine();
-            
+
 
             employee.Add(new Employee(name, email, dateofbirth, phone_num, address, employeeID, roleID, departmentID));
-        }
+        }*/
 
-        public void Remove(List<Employee> employee)
+        /*public void Remove(List<Employee> employee)
         {
             Console.Write("Nhap ma nhan vien ban muon xoa: ");
             string employeeIDtodelete = Console.ReadLine();
@@ -91,9 +106,9 @@ namespace Project_KTMH
                     employee.Remove(emp);
                 }
             }
-        }
+        }*/
 
-        public void Update(List<Employee> employee)
+        /*public void Update(List<Employee> employee)
         {
             Console.Write("Nhap ma nhan vien ban muon chinh sua: ");
             string employeeIDtoupdate = Console.ReadLine();
@@ -132,10 +147,10 @@ namespace Project_KTMH
                                 string newdepartmentid = Console.ReadLine();
                                 emp.DepartmentID1 = newdepartmentid;
                             }
-                            break;                   
+                            break;
                     }
                 }
             }
-        }
+        }*/
     }
 }
