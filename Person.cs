@@ -6,9 +6,9 @@ namespace Project_KTMH
 {
     public abstract class Person
     {
-        public string Name { get; }
-        public string Email { get; }
-        public DateTime DateOfBirth { get; }
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public DateTime DateOfBirth { get; private set; }
         public string Phone_num { get; set; }
         public string Address { get; set; }
 
@@ -22,9 +22,9 @@ namespace Project_KTMH
 
         protected Person(string name, string email, DateTime dateofbirth, string phone_num, string address)
         {
-            Name = name;
-            Email = email;
-            DateOfBirth = dateofbirth;
+            this.Name = name;
+            this.Email = email;
+            this.DateOfBirth = dateofbirth;
             Phone_num = phone_num;
             Address = address;
         }
@@ -32,6 +32,15 @@ namespace Project_KTMH
         {
             Phone_num = phone_num;
             Address = address;
+        }
+
+        public void UpdatePersonalDetails(string name, string email, DateTime dateOfBirth)
+        {
+            // Add any necessary validation here
+            this.Name = name;
+            this.Email = email;
+            this.DateOfBirth = dateOfBirth;
+            
         }
     }
 }
