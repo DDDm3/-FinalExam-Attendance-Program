@@ -1,4 +1,5 @@
-﻿using System;
+﻿using final1;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
@@ -6,7 +7,7 @@ namespace Project_KTMH
 {
     public class Attendance
     {
-        private int attendanceID;
+        
         private TimeSpan checkInTime;
         private TimeSpan checkOutTime;
         private string status;
@@ -59,12 +60,16 @@ namespace Project_KTMH
             {
                 checkOut = true;
             }
-            else if (checkOutTime > new TimeSpan(18, 0, 0))
+            else if (checkOutTime > new TimeSpan(18, 30, 0))
             {
-                TimeSpan newOtTime;
+                TimeSpan newOtTime = new TimeSpan(0,0,0);
                 checkOut = true;
-                newOtTime = checkOutTime - new TimeSpan(18, 0, 0);
-                otTime += newOtTime;
+                TimeSpan otduration = checkOutTime - new TimeSpan(18, 30, 0);
+              
+                if(otduration > newOtTime)
+                {
+                    otTime += new TimeSpan(otduration.Hours, 0, 0);
+                }    
             }
         }
 
@@ -72,7 +77,7 @@ namespace Project_KTMH
         {
             foreach ((Employee, Payroll) e in EmployeeList.emp)
             {
-               
+
                 if (e.Item1.EmployeeID1 == employeeID)
                 {
                     List<Attendance> attendances = e.Item1.attendances;
@@ -97,7 +102,7 @@ namespace Project_KTMH
             foreach (Employee employee in employees)
             {
                 //List<Attendance> attendances = attendanceRecords[employee.EmployeeID1];
-                
+
                 bool hasrecord = false;
 
                 for (int i = 0; i < employee.attendances.Count; i++)
@@ -123,12 +128,12 @@ namespace Project_KTMH
 
         //update khi người dùng checkin và checkout
         //kiểm tra mã nhân viên khi người dùng nhập vào 
-        public void UpdateRecord(string employeeID)
+        public void UpdateRecord(string employeeID,string action)
         {
             //List<Attendance> attendances = attendanceRecords[employeeID];
             DateTime today = DateTime.Today;
             DateTime now = DateTime.Now;
-            foreach ((Employee,Payroll) e in EmployeeList.emp)
+            foreach ((Employee, Payroll) e in EmployeeList.emp)
             {
                 if (e.Item1.EmployeeID1 == employeeID)
                 {
@@ -136,29 +141,24 @@ namespace Project_KTMH
                     {
                         if (attendance.date == today)
                         {
-                            Console.WriteLine("Chon hanh dong tiep theo");
-                            Console.WriteLine("1. Checkin");
-                            Console.WriteLine("2. Checkout");
-                            int choice = int.Parse(Console.ReadLine());
-                            switch (choice)
+                            
+                            if (action == "CheckIn")
                             {
-                                case 1:
-                                    {
-                                        attendance.checkInTime = now.TimeOfDay;
-                                        attendance.TimeIn(attendance.checkInTime);
-                                        attendance.checkIn = true;
+                                attendance.checkInTime = now.TimeOfDay;
+                                attendance.TimeIn(attendance.checkInTime);
+                                attendance.checkIn = true;
 
-                                    }
-                                    break;
-                                case 2:
-                                    {
-                                        attendance.checkOutTime = now.TimeOfDay;
-                                        attendance.TimeOut(attendance.checkOutTime);
-                                        attendance.checkOut = true;
-                                    }
-                                    break;
                             }
+
+                            if (action == "CheckOut")
+                            {
+                                attendance.checkOutTime = now.TimeOfDay;
+                                attendance.TimeOut(attendance.checkOutTime);
+                                attendance.checkOut = true;
+                            }
+
                         }
+                        
                     }
                 }
             }
