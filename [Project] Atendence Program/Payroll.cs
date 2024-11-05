@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace _Project__Atendence_Program
+namespace Project_KTMH
 {
     public class Payroll
     {
         public string PayrollID { get; private set; }
-        public int DepartmentID { get; private set; }
-        public int EmployeeID { get; private set; }
+        public string DepartmentID { get; private set; }
+        public string EmployeeID { get; private set; }
         public string EmployeeName { get; private set; }
         public double SalaryCoefficient { get; private set; }
         public double SalaryCoefficientDepartment { get; private set; }
         public double SalaryCoefficientPosition { get; private set; }
-        public decimal BaseSalary { get; private set; }
+        public decimal BaseSalary { get;  set; }
         public decimal OvertimeSalary { get; private set; }
         public decimal TotalSalary { get; private set; }
-        public int AttendanceDay { get; private set; }
-        public List<Attendance> AttendanceList { get; private set; }
+        public int AttendanceDay { get; set; }
+        public List<Attendance> AttendanceList { get; set; }
         public decimal BHXH { get; private set; }
         public decimal BHYT { get; private set; }
 
@@ -27,13 +29,13 @@ namespace _Project__Atendence_Program
 
         public DateTime CalculationDate { get; private set; }
 
-        public Payroll(string payrollID, int departmentID, int employeeID, string employeeName,
+        public Payroll(string payrollID,string departmentID, string employeeID, string employeeName,
                       double salaryCoefficient, double salaryCoefficientDepartment, double salaryCoefficientPosition,
                       decimal baseSalary, int attendanceDay)
         {
             PayrollID = payrollID;
-            DepartmentID = departmentID;
-            EmployeeID = employeeID;
+            DepartmentID = EmployeeList.getDepartmentID(employeeID);
+            EmployeeID = EmployeeList.getEmployeeID(employeeID);
             EmployeeName = employeeName;
             SalaryCoefficient = salaryCoefficient;
             SalaryCoefficientDepartment = salaryCoefficientDepartment;
@@ -42,7 +44,7 @@ namespace _Project__Atendence_Program
             AttendanceDay = attendanceDay;
             OvertimeSalary = 0;
             Bonus = 0;
-            Tax = 0;
+            Tax = 20;
             TotalDeductions = 0;
             TotalSalary = 0;
             AttendanceList = new List<Attendance>();
@@ -57,7 +59,7 @@ namespace _Project__Atendence_Program
 
         public void CalculateTotalSalary()
         {
-            decimal baseSalaryCalculated = BaseSalary * (decimal)SalaryCoefficient * (decimal)SalaryCoefficientDepartment * (decimal)SalaryCoefficientPosition;
+            decimal baseSalaryCalculated = BaseSalary * (decimal)SalaryCoefficient * (decimal)SalaryCoefficientDepartment * (decimal)SalaryCoefficientPosition * AttendanceList.Count;
             decimal totalBeforeDeductions = baseSalaryCalculated + OvertimeSalary + Bonus;
             TotalDeductions = BHXH + BHYT + (totalBeforeDeductions * Tax / 100);
             TotalSalary = totalBeforeDeductions - TotalDeductions;
@@ -72,9 +74,9 @@ namespace _Project__Atendence_Program
         public decimal CalculateTotalOvertimeHours()
         {
             decimal totalOvertime = 0;
-            foreach (var attendance in AttendanceList)
+            foreach (Attendance attendance in AttendanceList)
             {
-                totalOvertime += attendance.OtTime.Hours;
+               totalOvertime += (decimal)attendance.OtTime.TotalHours;
             }
             return totalOvertime;
         }
