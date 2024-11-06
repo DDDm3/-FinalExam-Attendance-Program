@@ -15,7 +15,7 @@ namespace Project_KTMH
         {
             InitializeComponent();
             // Khởi tạo đối tượng User (có thể lấy từ cơ sở dữ liệu hoặc file)
-            user = new User("admin", "admin123", "E001");
+            
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -23,12 +23,13 @@ namespace Project_KTMH
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            if (user.Login(username, password))
+            // Sử dụng phương thức Login từ UserManager
+            if (UserManager.Instance.Login(username, password))
             {
                 MessageBox.Show("Đăng nhập thành công!");
                 // Mở form chính của ứng dụng sau khi đăng nhập thành công
-                //MainForm mainForm = new MainForm();
-                //mainForm.Show();
+                // MainForm mainForm = new MainForm();
+                // mainForm.Show();
                 this.Hide(); // Ẩn form đăng nhập
             }
             else
@@ -61,8 +62,8 @@ namespace Project_KTMH
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(112, 41);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtUsername.Location = new System.Drawing.Point(129, 38);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(2);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(151, 20);
             this.txtUsername.TabIndex = 0;
@@ -70,8 +71,8 @@ namespace Project_KTMH
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(112, 81);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Location = new System.Drawing.Point(129, 81);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(151, 20);
             this.txtPassword.TabIndex = 1;
@@ -79,10 +80,10 @@ namespace Project_KTMH
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(112, 122);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLogin.Location = new System.Drawing.Point(129, 122);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(2);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(56, 24);
+            this.btnLogin.Size = new System.Drawing.Size(80, 24);
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "Đăng Nhập";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -90,8 +91,8 @@ namespace Project_KTMH
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(206, 122);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExit.Location = new System.Drawing.Point(224, 122);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(56, 24);
             this.btnExit.TabIndex = 3;
@@ -130,7 +131,7 @@ namespace Project_KTMH
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UserForm";
             this.Text = "Đăng Nhập";
             this.ResumeLayout(false);
