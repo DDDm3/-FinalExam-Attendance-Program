@@ -34,24 +34,6 @@ namespace Project_KTMH
                 Console.WriteLine("Tên đăng nhập hoặc mật khẩu không đúng.");
                 return false;
             }
-        }
-        //private void btnLogOut_Click(object sender, EventArgs e)
-        //{
-        //    Logout();
-        //}
-
-        //public void Logout()
-        //{
-            
-        //        foreach (sForm form in Application.OpenForms)
-        //        {
-        //            if (form != this) // Giữ lại LoginForm hoặc MainForm
-        //                form.Close();
-        //        }
-        //        this.Hide(); // Ẩn form hiện tại
-        //        UserForm loginForm = new UserForm();
-        //        loginForm.Show();
-        //    Console.WriteLine("Đăng xuất thành công!");
-        //}
+        }      
     }
 }

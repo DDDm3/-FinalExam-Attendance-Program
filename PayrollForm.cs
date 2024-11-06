@@ -159,6 +159,7 @@ namespace Project_KTMH
                 SavePayrollsToFile();
                 LoadPayrolls(); // Tải lại dữ liệu bảng lương
             }
+            ClearInputs();
         }
 
 
@@ -171,9 +172,11 @@ namespace Project_KTMH
                 var selectedPayroll = (Payroll)dgvPayrolls.CurrentRow.DataBoundItem;
                 selectedPayroll.BaseSalary = decimal.Parse(txtBaseSalary.Text);
                 selectedPayroll.AttendanceDay = int.Parse(txtAttendanceDay.Text);
+                selectedPayroll.CalculateTotalSalary();
                 SavePayrollsToFile();
                 LoadPayrolls(); // Tải lại dữ liệu bảng lương
             }
+            ClearInputs ();
         }
 
         // Sự kiện xóa bảng lương
@@ -186,6 +189,7 @@ namespace Project_KTMH
                 SavePayrollsToFile();
                 LoadPayrolls(); // Tải lại dữ liệu bảng lương
             }
+            ClearInputs();
         }
 
         // Sự kiện khi thay đổi lựa chọn trong DataGridView

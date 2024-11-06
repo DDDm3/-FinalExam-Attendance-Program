@@ -34,8 +34,8 @@ namespace Project_KTMH
                       decimal baseSalary, int attendanceDay)
         {
             PayrollID = payrollID;
-            DepartmentID = departmentID;
-            EmployeeID = employeeID;
+            DepartmentID = EmployeeList.getDepartmentID(employeeID);
+            EmployeeID = EmployeeList.getEmployeeID(employeeID);
             EmployeeName = employeeName;
             SalaryCoefficient = salaryCoefficient;
             SalaryCoefficientDepartment = salaryCoefficientDepartment;
@@ -44,7 +44,7 @@ namespace Project_KTMH
             AttendanceDay = attendanceDay;
             OvertimeSalary = 0;
             Bonus = 0;
-            Tax = 0;
+            Tax = 20;
             TotalDeductions = 0;
             TotalSalary = 0;
             AttendanceList = new List<Attendance>();
@@ -59,7 +59,7 @@ namespace Project_KTMH
 
         public void CalculateTotalSalary()
         {
-            decimal baseSalaryCalculated = BaseSalary * (decimal)SalaryCoefficient * (decimal)SalaryCoefficientDepartment * (decimal)SalaryCoefficientPosition;
+            decimal baseSalaryCalculated = BaseSalary * (decimal)SalaryCoefficient * (decimal)SalaryCoefficientDepartment * (decimal)SalaryCoefficientPosition * AttendanceList.Count;
             decimal totalBeforeDeductions = baseSalaryCalculated + OvertimeSalary + Bonus;
             TotalDeductions = BHXH + BHYT + (totalBeforeDeductions * Tax / 100);
             TotalSalary = totalBeforeDeductions - TotalDeductions;
@@ -74,9 +74,9 @@ namespace Project_KTMH
         public decimal CalculateTotalOvertimeHours()
         {
             decimal totalOvertime = 0;
-            foreach (var attendance in AttendanceList)
+            foreach (Attendance attendance in AttendanceList)
             {
-                //totalOvertime += attendance.OvertimeHours;
+               totalOvertime += (decimal)attendance.OtTime.TotalHours;
             }
             return totalOvertime;
         }

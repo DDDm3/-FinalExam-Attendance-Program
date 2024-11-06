@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Project_K TMH
+namespace Project_KTMH
 {
     public partial class UserForm : Form
     {
@@ -23,12 +23,13 @@ namespace Project_K TMH
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            if (user.Login(username, password))
+            // Sử dụng phương thức Login từ UserManager
+            if (UserManager.Instance.Login(username, password))
             {
                 MessageBox.Show("Đăng nhập thành công!");
                 // Mở form chính của ứng dụng sau khi đăng nhập thành công
-                //MainForm mainForm = new MainForm();
-                //mainForm.Show();
+                // MainForm mainForm = new MainForm();
+                // mainForm.Show();
                 this.Hide(); // Ẩn form đăng nhập
             }
             else
